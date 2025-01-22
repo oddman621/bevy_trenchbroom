@@ -46,7 +46,11 @@ impl TrenchBroomConfig {
                         QuakeClassPropertyType::Choices(_) => "choices",
                     },
                     property.title.unwrap_or(property.name),
-                    property.default_value.unwrap_or(String::new)(),
+                    {
+                        let mut s = property.default_value.unwrap_or(String::new)();
+                        s.insert(0, '\"'); s.push('\"');
+                        s
+                    },
                     property.description.unwrap_or_default(),
                 );
 
